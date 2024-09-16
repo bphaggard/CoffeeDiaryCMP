@@ -1,0 +1,49 @@
+CREATE TABLE Coffee (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    location TEXT NOT NULL,
+    description TEXT NOT NULL,
+    date TEXT NOT NULL,
+    ratingBar INTEGER NOT NULL
+);
+
+insertCoffee:
+INSERT INTO Coffee(id, title, location, description, date, ratingBar)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getAllCoffees:
+SELECT *
+FROM Coffee;
+
+getCoffeeById:
+SELECT *
+FROM Coffee
+WHERE id = ?;
+
+getCoffeeByDate:
+SELECT *
+FROM Coffee
+ORDER BY date;
+
+getCoffeeByTitle:
+SELECT *
+FROM Coffee
+ORDER BY title;
+
+getCoffeeByLocation:
+SELECT *
+FROM Coffee
+ORDER BY location;
+
+updateCoffee:
+UPDATE Coffee
+SET title = ?, location = ?, description = ?, date = ?, ratingBar = ?
+WHERE id = ?;
+
+deleteCoffeeById:
+DELETE FROM Coffee
+WHERE id = :id;
+
+deleteAllCoffees:
+DELETE FROM Coffee;
+
