@@ -22,69 +22,64 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import androidx.navigation.NavController
 import coffeecmp.composeapp.generated.resources.Res
 import coffeecmp.composeapp.generated.resources.cap2
+import org.example.project.coffeecmp.navigation.Screen
 import org.example.project.coffeecmp.ui.theme.CoffeeDarks
 import org.example.project.coffeecmp.ui.theme.CoffeeLights
 import org.example.project.coffeecmp.util.GetBebasFontFamily
 import org.example.project.coffeecmp.util.GetDjbCoffeeFontFamily
 import org.example.project.coffeecmp.util.bounceClick
 import org.jetbrains.compose.resources.painterResource
-
-class MainScreen: Screen {
-
-    @Composable
-    override fun Content() {
-        MainScreenContent()
-    }
-}
+import org.koin.compose.KoinContext
 
 @Composable
-fun MainScreenContent() {
+fun MainScreenContent(
+    navController : NavController
+) {
     val colors = if (!isSystemInDarkTheme()) CoffeeLights else CoffeeDarks
-    val navigator = LocalNavigator.currentOrThrow
 
     MaterialTheme(colorScheme = colors) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.primary)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Spacer(modifier = Modifier.fillMaxHeight(0.3f))
-            Text(
-                text = "coffee diary",
-                fontSize = 40.sp,
-                fontFamily = GetDjbCoffeeFontFamily(),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-            Image(
-                modifier = Modifier.fillMaxWidth(0.8f),
-                painter = painterResource(Res.drawable.cap2),
-                contentDescription = "Main Image"
-            )
-            Spacer(modifier = Modifier.fillMaxHeight(0.2f))
-            Button(
+        KoinContext {
+            Column(
                 modifier = Modifier
-                    .width(200.dp)
-                    .bounceClick(),
-                onClick = { navigator.push(MenuScreen()) },
-                shape = RoundedCornerShape(15.dp),
-                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
-            )
-            {
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.primary)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Spacer(modifier = Modifier.fillMaxHeight(0.3f))
                 Text(
-                    text = "Get Started",
-                    fontFamily = GetBebasFontFamily(),
-                    fontSize = 26.sp
+                    text = "coffee diary",
+                    fontSize = 40.sp,
+                    fontFamily = GetDjbCoffeeFontFamily(),
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
+                Image(
+                    modifier = Modifier.fillMaxWidth(0.8f),
+                    painter = painterResource(Res.drawable.cap2),
+                    contentDescription = "Main Image"
+                )
+                Spacer(modifier = Modifier.fillMaxHeight(0.2f))
+                Button(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .bounceClick(),
+                    onClick = { navController.navigate(Screen.Menu.route) },
+                    shape = RoundedCornerShape(15.dp),
+                    colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
+                )
+                {
+                    Text(
+                        text = "Get Started",
+                        fontFamily = GetBebasFontFamily(),
+                        fontSize = 26.sp
+                    )
+                }
+                Spacer(modifier = Modifier.fillMaxHeight(0.3f))
             }
-            Spacer(modifier = Modifier.fillMaxHeight(0.3f))
         }
     }
 }

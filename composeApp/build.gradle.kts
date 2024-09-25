@@ -32,6 +32,8 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.sql.android.driver)
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -43,12 +45,13 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.koin.core)
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.screen.model)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.koin)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.navigation.compose)
+            implementation(libs.viewmodel.compose)
 
             implementation(libs.kotlinx.datetime)
+            implementation(libs.lifecycle.viewmodel)
 
             implementation(libs.multiplatform.settings.no.arg)
             implementation(libs.multiplatform.settings.coroutines)
@@ -58,6 +61,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.sql.native.driver)
+            implementation(libs.koin.core)
         }
     }
 }
@@ -105,7 +109,7 @@ android {
 
 sqldelight {
     databases {
-        create("AppDatabase") {
+        create("CoffeeDatabase") {
             packageName.set("org.example.project.coffeecmp.db")
         }
     }

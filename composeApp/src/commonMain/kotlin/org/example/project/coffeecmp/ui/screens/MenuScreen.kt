@@ -22,41 +22,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
+import androidx.navigation.NavController
+import org.example.project.coffeecmp.navigation.Screen
 import org.example.project.coffeecmp.ui.theme.CoffeeDarks
 import org.example.project.coffeecmp.ui.theme.CoffeeLights
 import org.example.project.coffeecmp.util.CoffeeCard
 import org.example.project.coffeecmp.util.GetBebasFontFamily
 import org.example.project.coffeecmp.util.coffeeTypes
-
-class MenuScreen: Screen {
-
-    @Composable
-    override fun Content() {
-        MenuScreenContent()
-    }
-}
+import org.koin.compose.KoinContext
 
 @Composable
-fun MenuScreenContent() {
+fun MenuScreenContent(
+    navController : NavController
+) {
     val colors = if (!isSystemInDarkTheme()) CoffeeLights else CoffeeDarks
 
     MaterialTheme(colorScheme = colors) {
-        Column(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
-        ) {
-            AppBar()
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+        KoinContext {
+            Column(
+                modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
-                items(coffeeTypes) { coffeeType ->
-                    CoffeeCard(
-                        image = coffeeType.imageId,
-                        title = coffeeType.title
-                    )
+                AppBar(navController)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(coffeeTypes) { coffeeType ->
+                        CoffeeCard(
+                            image = coffeeType.imageId,
+                            title = coffeeType.title,
+                            navController = navController
+                        )
+                    }
                 }
             }
         }
@@ -65,7 +64,9 @@ fun MenuScreenContent() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppBar() {
+private fun AppBar(
+    navController : NavController
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -74,7 +75,7 @@ private fun AppBar() {
                 fontSize = 30.sp)
         }, navigationIcon = {
             IconButton(onClick = {
-//                navigator.push(SourcesScreen())
+                navController.navigate(Screen.Note.route)
             }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Notes,

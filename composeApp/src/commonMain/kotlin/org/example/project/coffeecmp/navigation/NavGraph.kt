@@ -1,0 +1,36 @@
+package org.example.project.coffeecmp.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import org.example.project.coffeecmp.ui.screens.MainScreenContent
+import org.example.project.coffeecmp.ui.screens.MenuScreenContent
+import org.example.project.coffeecmp.ui.screens.NoteScreenContent
+import org.example.project.coffeecmp.ui.screens.SaveCoffeeScreenContent
+
+@Composable
+fun SetupNavGraph(
+    navController: NavHostController,
+    startDestination: String = Screen.Main.route
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(route = Screen.Main.route) {
+            MainScreenContent(navController)
+        }
+        composable(route = Screen.Menu.route) {
+            MenuScreenContent(navController)
+        }
+        composable(route = "${Screen.Save.route}/{title}") {
+            navBackStackEntry ->
+            val title = navBackStackEntry.arguments?.getString("title")
+            SaveCoffeeScreenContent(title ?: "", navController)
+        }
+        composable(route = Screen.Note.route) {
+            NoteScreenContent(navController)
+        }
+    }
+}

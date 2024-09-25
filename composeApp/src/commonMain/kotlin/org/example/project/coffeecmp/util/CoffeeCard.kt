@@ -25,9 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import org.example.project.coffeecmp.ui.screens.SaveCoffeeScreen
+import androidx.navigation.NavController
+import org.example.project.coffeecmp.navigation.Screen
 import org.example.project.coffeecmp.ui.theme.CoffeeDarks
 import org.example.project.coffeecmp.ui.theme.CoffeeLights
 import org.jetbrains.compose.resources.DrawableResource
@@ -36,10 +35,10 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun CoffeeCard(
     image : DrawableResource,
+    navController: NavController,
     title : String
 ){
     val colors = if (!isSystemInDarkTheme()) CoffeeLights else CoffeeDarks
-    val navigator = LocalNavigator.currentOrThrow
 
     MaterialTheme(colorScheme = colors) {
         Card(
@@ -74,7 +73,7 @@ fun CoffeeCard(
                 )
                 IconButton(
                     colors = IconButtonDefaults.iconButtonColors(MaterialTheme.colorScheme.scrim),
-                    onClick = { navigator.push(SaveCoffeeScreen(title)) }
+                    onClick = { navController.navigate("${Screen.Save.route}/$title") }
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Add,

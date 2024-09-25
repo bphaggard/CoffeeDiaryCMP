@@ -20,6 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.example.project.coffeecmp.ui.theme.CoffeeDarks
 import org.example.project.coffeecmp.ui.theme.CoffeeLights
 
@@ -51,6 +55,18 @@ fun Modifier.bounceClick() = composed {
             }
         }
 }
+
+//DateTime Formatter
+fun formatLocalDateTime(localDateTime: LocalDateTime): String {
+    val day = localDateTime.dayOfMonth.toString().padStart(2, '0')
+    val month = localDateTime.monthNumber.toString().padStart(2, '0')
+    val year = localDateTime.year.toString()
+    return "$day/$month/$year"
+}
+
+val datetimeInSystemZone: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+
+val formattedDate = formatLocalDateTime(datetimeInSystemZone)
 
 //Custom fonts
 @Composable
