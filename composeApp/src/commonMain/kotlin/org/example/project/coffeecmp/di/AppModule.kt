@@ -17,8 +17,4 @@ val appModule = module {
     viewModel { CoffeeViewModel(get()) }
 }
 
-fun initKoin() {
-    startKoin {
-        modules(appModule)
-    }
-}
+expect fun initKoin()

@@ -11,7 +11,7 @@ actual class DatabaseDriverFactory(private val context: Context) {
         return AndroidSqliteDriver(
             schema = CoffeeDatabase.Schema,
             context = context,
-            name = "Coffee.Database.db"
+            name = "CoffeeDatabase.db"
         )
     }
 }
