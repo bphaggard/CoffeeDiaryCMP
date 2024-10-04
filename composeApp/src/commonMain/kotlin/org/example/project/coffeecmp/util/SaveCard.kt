@@ -30,12 +30,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.example.project.coffeecmp.CoffeeViewModel
 
 @Composable
@@ -109,6 +103,14 @@ fun SaveCard(viewModel: CoffeeViewModel) {
                     .fillMaxWidth(0.9f),
                 value = description,
                 label = { Text(text = "Description") },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                ),
                 placeholder = { Text(text = "Input description") },
                 onValueChange = { viewModel.setDescription(it) },
                 minLines = 2,

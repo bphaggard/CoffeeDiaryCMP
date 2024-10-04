@@ -75,7 +75,7 @@ fun NoteScreenContent(
                                 modifier = Modifier
                                     .fillMaxWidth(0.85f)
                                     .height(120.dp)
-                                    .clickable {  },
+                                    .clickable { navController.navigate("${Screen.Detail.route}/${coffee.title}/${coffee.id}") },
                                 shape = RoundedCornerShape(22.dp),
                                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
                                 elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)

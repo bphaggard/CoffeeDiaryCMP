@@ -1,6 +1,5 @@
 package org.example.project.coffeecmp
 
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,9 +10,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.format.DateTimeComponents
-import kotlinx.datetime.format.DateTimeFormat
-import kotlinx.datetime.format.byUnicodePattern
 import kotlinx.datetime.toLocalDateTime
 import org.example.project.coffeecmp.domain.Coffee
 import org.example.project.coffeecmp.domain.CoffeeDataSource
@@ -27,8 +23,13 @@ class CoffeeViewModel(
     private val datetimeInSystemZone: LocalDateTime = currentMoment.toLocalDateTime(TimeZone.currentSystemDefault())
     val formattedDate: String = datetimeInUtc.date.toString()
 
+    //Coffee values
     private val _coffees = MutableStateFlow<List<Coffee>>(emptyList())
     val coffees: StateFlow<List<Coffee>> get() = _coffees.asStateFlow()
+
+    //Detail values
+    private val _coffee = MutableStateFlow<Coffee?>(null)
+    val coffee: StateFlow<Coffee?> = _coffee
 
     // State to hold date, location, description and rating
     private val _newDate = MutableStateFlow(formattedDate)
@@ -98,6 +99,12 @@ class CoffeeViewModel(
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to save data: ${e.message}"
             }
+        }
+    }
+
+    fun getCoffeeById(id: Long) {
+        viewModelScope.launch {
+            _coffee.value = coffeeDataSource.getCoffeeById(id)
         }
     }
 

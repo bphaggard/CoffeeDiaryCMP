@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.example.project.coffeecmp.ui.screens.DetailScreen
 import org.example.project.coffeecmp.ui.screens.MainScreenContent
 import org.example.project.coffeecmp.ui.screens.MenuScreenContent
 import org.example.project.coffeecmp.ui.screens.NoteScreenContent
@@ -31,6 +32,15 @@ fun SetupNavGraph(
         }
         composable(route = Screen.Note.route) {
             NoteScreenContent(navController)
+        }
+        composable(route = "${Screen.Detail.route}/{title}/{id}") {
+            navBackStackEntry ->
+            val title = navBackStackEntry.arguments?.getString("title")
+            val idString = navBackStackEntry.arguments?.getString("id")
+            val id = idString?.toLongOrNull()
+            if (id != null) {
+                DetailScreen(navController, title ?: "", id)
+            }
         }
     }
 }

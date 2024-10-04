@@ -22,3 +22,12 @@ val coffeeTypes = arrayListOf(
     CoffeeTypes(4, Res.drawable.flatwhite, "Flat White"),
     CoffeeTypes(5, Res.drawable.chocolate, "Chocolate")
 )
+
+val titleToImageMap = mapOf(
+    "Espresso" to Res.drawable.espresso,
+    "Americano" to Res.drawable.americano,
+    "Cappuccino" to Res.drawable.cappuccino,
+    "Latte" to Res.drawable.latte,
+    "Flat White" to Res.drawable.flatwhite,
+    "Chocolate" to Res.drawable.chocolate
+)

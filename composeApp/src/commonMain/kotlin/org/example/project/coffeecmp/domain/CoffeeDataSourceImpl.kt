@@ -13,8 +13,7 @@ class CoffeeDataSourceImpl (db: CoffeeDatabase): CoffeeDataSource {
     override suspend fun getCoffeeById(id: Long): Coffee? {
         return coffeeQueries
             .getCoffeeById(id)
-            .executeAsOneOrNull()
-            ?.toCoffee()
+            .executeAsOneOrNull()?.toCoffee()
     }
 
     override suspend fun getAllCoffees(): List<Coffee> {

@@ -11,7 +11,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import coffeecmp.composeapp.generated.resources.oswald_light
+import coffeecmp.composeapp.generated.resources.oswald_regular
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import org.example.project.coffeecmp.ui.theme.CoffeeDarks
-import org.example.project.coffeecmp.ui.theme.CoffeeLights
 
 //Bounce Click Effect
 enum class ButtonState { Pressed, Idle }
@@ -75,3 +74,8 @@ fun GetBebasFontFamily() = FontFamily(Font(Res.font.bebasneue))
 @Composable
 fun GetDjbCoffeeFontFamily() = FontFamily(Font(Res.font.djbcoffee))
 
+@Composable
+fun GetOswaldFontLightFamily() = FontFamily(Font(Res.font.oswald_light))
+
+@Composable
+fun GetOswaldFontRegularFamily() = FontFamily(Font(Res.font.oswald_regular))
