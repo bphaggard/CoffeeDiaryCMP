@@ -57,6 +57,23 @@ class CoffeeViewModel(
     private val _updateRatingBar = MutableStateFlow(0)
     val updateRatingBar: StateFlow<Int> get() = _updateRatingBar
 
+    // StateFlow for sort order
+    private val _sortOrder = MutableStateFlow("None")
+    val sortOrder: StateFlow<String> get() = _sortOrder
+
+    // Functions to change sort order
+    fun sortByTitle() {
+        _sortOrder.value = "Title"
+    }
+
+    fun sortByDate() {
+        _sortOrder.value = "Date"
+    }
+
+    fun sortByRating() {
+        _sortOrder.value = "Rating"
+    }
+
     //Error Message
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> get() = _errorMessage.asStateFlow()
