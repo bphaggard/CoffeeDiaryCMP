@@ -8,7 +8,7 @@ interface CoffeeDataSource {
     suspend fun getAllCoffees(): List<Coffee>
     suspend fun deleteCoffeeById(id: Long)
     suspend fun deleteAllCoffees()
-    suspend fun updateCoffee(coffee: Coffee)
+    suspend fun updateCoffee(coffeeId: Long, newDate: String, newLocation: String, newDescription: String, newRating: Long)
     suspend fun getCoffeeByTitle(): Query<List<Coffee>>
     suspend fun getCoffeeByDate(): Query<List<Coffee>>
     suspend fun getCoffeeByLocation(): Query<List<Coffee>>

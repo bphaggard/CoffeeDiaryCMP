@@ -128,7 +128,8 @@ fun NoteScreenContent(
                                             contentDescription = "edit",
                                             tint = Color.Black,
                                             modifier = Modifier
-                                                .clickable(onClick = {  })
+                                                .clickable(onClick = {
+                                                    navController.navigate("${Screen.Update.route}/${coffee.id}") })
                                         )
                                         Icon(
                                             imageVector = Icons.Filled.Delete,

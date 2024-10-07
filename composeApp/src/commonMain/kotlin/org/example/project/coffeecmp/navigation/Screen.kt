@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     data object Save: Screen(route = "save")
     data object Note: Screen(route = "note")
     data object Detail: Screen(route = "detail")
+    data object Update: Screen(route = "update")
 }

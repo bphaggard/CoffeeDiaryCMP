@@ -44,6 +44,19 @@ class CoffeeViewModel(
     private val _newRatingBar = MutableStateFlow(0)
     val newRatingBar: StateFlow<Int> get() = _newRatingBar
 
+    // State to update date, location, description and rating
+    private val _updateDate = MutableStateFlow(formattedDate)
+    val updateDate: StateFlow<String> get() = _updateDate
+
+    private val _updateLocation = MutableStateFlow("")
+    val updateLocation: StateFlow<String> get() = _updateLocation
+
+    private val _updateDescription = MutableStateFlow("")
+    val updateDescription: StateFlow<String> get() = _updateDescription
+
+    private val _updateRatingBar = MutableStateFlow(0)
+    val updateRatingBar: StateFlow<Int> get() = _updateRatingBar
+
     //Error Message
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> get() = _errorMessage.asStateFlow()
@@ -52,7 +65,7 @@ class CoffeeViewModel(
         _errorMessage.value = null
     }
 
-    // Functions to update the fields
+    // Functions to set the fields
     init {
         loadCoffees()
     }
@@ -83,6 +96,23 @@ class CoffeeViewModel(
         }
     }
 
+    // Functions to update the fields
+    fun updateDate(updateDate: String) {
+        _updateDate.value = updateDate
+    }
+
+    fun updateLocation(updateLocation: String) {
+        _updateLocation.value = updateLocation
+    }
+
+    fun updateDescription(updateDescription: String) {
+        _updateDescription.value = updateDescription
+    }
+
+    fun updateRatingBar(updateRating: Int) {
+        _updateRatingBar.value = updateRating
+    }
+
     // Function to save coffee
     fun saveCoffee(title: String) {
         viewModelScope.launch {
@@ -104,7 +134,14 @@ class CoffeeViewModel(
 
     fun getCoffeeById(id: Long) {
         viewModelScope.launch {
-            _coffee.value = coffeeDataSource.getCoffeeById(id)
+            val coffee = coffeeDataSource.getCoffeeById(id)
+            _coffee.value = coffee
+            coffee?.let {
+                _updateDate.value = it.date
+                _updateLocation.value = it.location
+                _updateDescription.value = it.description
+                _updateRatingBar.value = it.ratingBar
+            }
         }
     }
 
@@ -115,7 +152,13 @@ class CoffeeViewModel(
         }
     }
 
-    fun updateCoffee() {
-
+    fun updateCoffee(id: Long, newDate: String, newLocation: String, newDescription: String, newRating: Long) {
+        viewModelScope.launch {
+            try {
+                coffeeDataSource.updateCoffee(id, newDate, newLocation, newDescription, newRating)
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to update data: ${e.message}"
+            }
+        }
     }
 }

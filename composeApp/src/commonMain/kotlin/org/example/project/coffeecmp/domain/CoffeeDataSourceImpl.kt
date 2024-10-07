@@ -31,12 +31,8 @@ class CoffeeDataSourceImpl (db: CoffeeDatabase): CoffeeDataSource {
         coffeeQueries.deleteAllCoffees()
     }
 
-    override suspend fun updateCoffee(coffee: Coffee) {
-        coffee.id?.let {
-            coffeeQueries.updateCoffee(coffee.title, coffee.location, coffee.description, coffee.date, coffee.ratingBar.toLong(),
-                it
-            )
-        }
+    override suspend fun updateCoffee(coffeeId: Long, newDate: String, newLocation: String, newDescription: String, newRating: Long) {
+        coffeeQueries.updateCoffee(newDate, newLocation, newDescription, newRating, coffeeId)
     }
 
     override suspend fun getCoffeeByTitle(): Query<List<Coffee>> {

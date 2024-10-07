@@ -9,6 +9,7 @@ import org.example.project.coffeecmp.ui.screens.MainScreenContent
 import org.example.project.coffeecmp.ui.screens.MenuScreenContent
 import org.example.project.coffeecmp.ui.screens.NoteScreenContent
 import org.example.project.coffeecmp.ui.screens.SaveCoffeeScreenContent
+import org.example.project.coffeecmp.ui.screens.UpdateScreen
 
 @Composable
 fun SetupNavGraph(
@@ -40,6 +41,14 @@ fun SetupNavGraph(
             val id = idString?.toLongOrNull()
             if (id != null) {
                 DetailScreen(navController, title ?: "", id)
+            }
+        }
+        composable(route = "${Screen.Update.route}/{id}") {
+            navBackStackEntry ->
+            val idString = navBackStackEntry.arguments?.getString("id")
+            val id = idString?.toLongOrNull()
+            if (id != null) {
+                UpdateScreen(navController, id)
             }
         }
     }
